@@ -1,0 +1,10 @@
+{
+  "name": "Berry AI Studio",
+  "short_name": "Berry AI",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f4fb",
+  "theme_color": "#2b2042",
+  "description": "Mobile creative studio for prompts, video merging and editing",
+  "icons": []
+}

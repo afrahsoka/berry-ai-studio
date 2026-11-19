@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2b2042"><meta name="description" content="Berry AI Studio - creative tools">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Berry AI Studio</title>
+<style>
+:root{--bg:#f7f4fb;--ink:#29213a;--muted:#746b83;--purple:#382750;--pink:#e9a9ca;--card:#fff;--line:#e9e2ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#2b2042,#61406f);color:white;padding:24px 18px 22px;border-radius:0 0 26px 26px}
+.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:23px;font-weight:850;letter-spacing:.2px}.sub{font-size:12px;color:#eadcf0;margin-top:5px}
+.pill{font-size:11px;background:#ffffff20;padding:7px 10px;border-radius:30px}
+main{max-width:760px;margin:auto;padding:16px 14px 40px}.welcome{font-size:14px;color:var(--muted);line-height:1.7;margin:4px 2px 15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.tile{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:15px;text-align:right;min-height:118px;cursor:pointer;box-shadow:0 4px 14px #2c194008}
+.tile:active{transform:scale(.985)}.ico{font-size:25px}.tile b{display:block;margin:7px 0 3px}.tile small{color:var(--muted);font-size:11px}
+.panel{display:none;background:white;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:15px;box-shadow:0 5px 18px #2c19400a}
+.panel.active{display:block}.panel h2{font-size:18px;margin:0 0 5px}.hint{font-size:12px;color:var(--muted);line-height:1.65;margin:0 0 13px}
+label{display:block;font-size:13px;font-weight:700;margin:13px 0 6px}
+input,textarea,select{width:100%;border:1px solid #ded5e7;background:#fdfcff;border-radius:12px;padding:12px;font:inherit;color:var(--ink);outline:none}
+textarea{min-height:100px;resize:vertical}input[type=file]{font-size:12px;padding:10px}
+button,.btn{border:0;border-radius:12px;padding:12px 14px;background:var(--purple);color:white;font:inherit;font-weight:700;cursor:pointer}
+button.secondary{background:#f0e9f5;color:var(--purple)}button:disabled{opacity:.5}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.actions button{flex:1}
+.result{white-space:pre-wrap;background:#f7f2fa;border:1px dashed #d8c9e5;border-radius:12px;padding:12px;font-size:13px;line-height:1.7;margin-top:12px;min-height:42px}
+.note{background:#fff7e8;border:1px solid #f2dfb8;border-radius:12px;padding:11px;font-size:12px;line-height:1.7;color:#70552b;margin-top:12px}
+video{width:100%;max-height:260px;background:#17131e;border-radius:12px;margin-top:10px}
+.progress{font-size:12px;color:var(--muted);margin-top:9px}
+footer{text-align:center;color:#92899c;font-size:11px;padding:20px}
+.back{background:transparent;color:var(--purple);padding:5px 0;margin-bottom:10px}
+@media(min-width:600px){main{padding-top:22px}.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="top"><div><div class="brand">🍓 Berry AI Studio</div><div class="sub">Create • Edit • Imagine</div></div><span class="pill">BETA · Free workspace</span></div></header>
+<main>
+<p class="welcome">مرحبا بك! اختاري الأداة اللي بغيتي. هادي مساحة إبداعية كتخدم من الهاتف، وملفات المونتاج كاتبقى عندك.</p>
+<div class="grid" id="home">
+<button class="tile" onclick="show('image')"><span class="ico">🎨</span><b>AI Image</b><small>برومبت الصور</small></button>
+<button class="tile" onclick="show('video')"><span class="ico">🎬</span><b>AI Video</b><small>برومبت الفيديو</small></button>
+<button class="tile" onclick="show('merge')"><span class="ico">🧩</span><b>Merge Videos</b><small>دمج المقاطع</small></button>
+<button class="tile" onclick="show('edit')"><span class="ico">✨</span><b>Video Editing</b><small>معاينة وفلاتر</small></button>
+<button class="tile" onclick="show('prompt')"><span class="ico">✍️</span><b>Prompt Studio</b><small>تحسين البرومبت</small></button>
+</div>
+
+<section class="panel" id="image">
+<button class="back" onclick="home()">← الرئيسية</button><h2>🎨 AI Image Studio</h2><p class="hint">كتبي وصف الصورة، وحضّري البرومبت. من بعد تقدري تنسخيه لمزوّد الصور اللي كتستعملي.</p>
+<label>وصف الصورة</label><textarea id="imgPrompt" placeholder="مثال: 3D cute cartoon strawberry classroom, pastel colors..."></textarea>
+<label>النمط</label><select id="imgStyle"><option>3D cute cartoon</option><option>Photorealistic</option><option>Watercolor illustration</option><option>Clay animation</option><option>Minimal flat illustration</option></select>
+<label>الأبعاد</label><select id="imgRatio"><option>1:1 square</option><option>9:16 vertical</option><option>16:9 landscape</option><option>A4 portrait</option></select>
+<div class="actions"><button onclick="makePrompt('image')">تحضير البرومبت</button><button class="secondary" onclick="copyResult('imageResult')">نسخ</button></div><div class="result" id="imageResult">البرومبت ديالك غادي يظهر هنا.</div>
+<div class="note">باش تولّدي الصورة بلا API داخل التطبيق، استعملي Free Model Library واختاري عرضاً مجانياً متاحاً. البرومبت ديالك واجد للنسخ.</div>
+</section>
+
+<section class="panel" id="video">
+<button class="back" onclick="home()">← الرئيسية</button><h2>🎬 AI Video Studio</h2><p class="hint">حضّري وصف الفيديو وحددي المدة والحركة ونسبة العرض.</p>
+<label>فكرة الفيديو</label><textarea id="vidPrompt" placeholder="Describe the scene, character, action, camera movement..."></textarea>
+<label>نوع التوليد</label><select id="vidMode"><option>Text to Video</option><option>Image to Video</option></select>
+<label>المدة المقترحة</label><select id="vidDuration"><option>5 seconds</option><option>8 seconds</option><option>10 seconds</option><option>15 seconds</option></select>
+<label>نسبة العرض</label><select id="vidRatio"><option>9:16 vertical</option><option>16:9 landscape</option><option>1:1 square</option></select>
+<div class="actions"><button onclick="makePrompt('video')">تحضير البرومبت</button><button class="secondary" onclick="copyResult('videoResult')">نسخ</button></div><div class="result" id="videoResult">البرومبت ديالك غادي يظهر هنا.</div>
+<div class="note">باش تولّدي الفيديو، استعملي Free Model Library. التوليد المجاني قد يكون محدوداً، وقد لا تتوفر بعض النماذج على الهاتف.</div>
+</section>
+
+<section class="panel" id="free">
+<button class="back" onclick="home()">← الرئيسية</button><h2>🆓 Free Model Library</h2>
+<p class="hint">كتفتحي كتالوج النماذج والعروض المجانية، وكتجربي الموديل مباشرة فصفحته. ما كاين لا API key ولا ربط مدفوع داخل Berry AI Studio.</p>
+<div class="tile" style="margin:8px 0;cursor:default"><span class="ico">🖼️</span><b>نماذج توليد الصور</b><small>اختاري Space مجاني متاح وقت الاستعمال.</small><div class="actions"><a class="btn" style="text-align:center;text-decoration:none;flex:1" target="_blank" rel="noopener" href="https://huggingface.co/spaces?pipeline_tag=text-to-image">فتح نماذج الصور</a></div></div>
+<div class="tile" style="margin:8px 0;cursor:default"><span class="ico">🎞️</span><b>نماذج توليد الفيديو</b><small>العروض المجانية قد تكون بطيئة أو مزدحمة أو متوقفة مؤقتاً.</small><div class="actions"><a class="btn" style="text-align:center;text-decoration:none;flex:1" target="_blank" rel="noopener" href="https://huggingface.co/spaces?pipeline_tag=text-to-video">فتح نماذج الفيديو</a></div></div>
+<div class="note">تنبيه: هاد الكتالوج ما كيضمنش أن كل Space مجاني أو متاح دائماً. استعملي فقط العروض اللي كتوضح أنها مجانية، وما تدخليش بطاقة بنكية أو تشري Credits. إذا طلب منك أداء، خرجي منه.</div>
+</section>
+<section class="panel" id="merge">
+<button class="back" onclick="home()">← الرئيسية</button><h2>🧩 Merge Videos</h2><p class="hint">اختاري جوج فيديوهات أو أكثر بنفس الترتيب اللي بغيتي. المعالجة كتوقع محلياً فالمتصفح باستعمال FFmpeg.wasm، وقد تكون ثقيلة على بعض الهواتف.</p>
+<label>اختيار الفيديوهات</label><input id="clips" type="file" accept="video/*" multiple>
+<div class="actions"><button id="mergeBtn" onclick="mergeVideos()">دمج الفيديوهات</button></div><div class="progress" id="mergeStatus">مازال ما بدات حتى عملية.</div><video id="mergedPreview" controls playsinline hidden></video><a id="downloadMerged" class="btn" hidden download="berry-merged.mp4">تحميل الفيديو المدمج</a>
+<div class="note">استعملي مقاطع قصيرة وبنفس الاتجاه والدقة قدر الإمكان. أول تحميل لمحرّك الدمج يحتاج إنترنت.</div>
+</section>
+
+<section class="panel" id="edit">
+<button class="back" onclick="home()">← الرئيسية</button><h2>✨ Quick Video Editor</h2><p class="hint">عايني الفيديو وجرّبي إعدادات العرض. هاد الأدوات الأولية ما كتغيّرش الملف الأصلي.</p>
+<label>اختيار فيديو</label><input id="editFile" type="file" accept="video/*">
+<video id="editPreview" controls playsinline hidden></video>
+<label>السطوع</label><input id="brightness" type="range" min="50" max="150" value="100">
+<label>التباين</label><input id="contrast" type="range" min="50" max="150" value="100">
+<label>التشبع</label><input id="saturate" type="range" min="0" max="200" value="100">
+<label>نص للمعاينة (اختياري)</label><input id="overlayText" placeholder="TutuBerry Academy">
+<div class="actions"><button class="secondary" onclick="resetFilters()">إعادة الضبط</button></div>
+<div class="note">المعاينة والفلاتر كتخدم فالمتصفح فقط. تصدير مونتاج نهائي مع النص والصوت والانتقالات غادي نزيدوه فمرحلة التطوير باستعمال FFmpeg.</div>
+</section>
+
+<section class="panel" id="prompt">
+<button class="back" onclick="home()">← الرئيسية</button><h2>✍️ Prompt Studio</h2><p class="hint">حوّلي فكرة قصيرة إلى برومبت منظم.</p>
+<label>الفكرة</label><textarea id="idea" placeholder="مثال: Miss Berry teaches children the letter A..."></textarea>
+<label>نوع المحتوى</label><select id="promptType"><option>Educational kids image</option><option>Educational kids video</option><option>Product advertisement</option><option>Story scene</option></select>
+<div class="actions"><button onclick="buildIdea()">تحسين البرومبت</button><button class="secondary" onclick="copyResult('ideaResult')">نسخ</button></div><div class="result" id="ideaResult">النتيجة غادي تظهر هنا.</div>
+</section>
+<footer>Berry AI Studio · Version 0.2 · Free-first · Built for mobile</footer>
+</main>
+<script type="module">
+const $=id=>document.getElementById(id);
+window.show=id=>{document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));$('home').style.display='none';$(id).classList.add('active');window.scrollTo(0,0)};
+window.home=()=>{document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));$('home').style.display='grid';window.scrollTo(0,0)};
+window.makePrompt=kind=>{
+ let p=kind==='image' ? $('imgPrompt').value.trim() : $('vidPrompt').value.trim();
+ if(!p){alert('كتبي وصف أو فكرة أولاً.');return}
+ let out=kind==='image'?`${p}. Visual style: ${$('imgStyle').value}. Composition: clear subject, polished professional lighting, coherent details. Aspect ratio: ${$('imgRatio').value}. No unwanted text, logos, or watermark.`:
+ `${p}. Video mode: ${$('vidMode').value}. Duration: ${$('vidDuration').value}. Aspect ratio: ${$('vidRatio').value}. Include consistent characters and clothing, smooth natural motion, stable camera, coherent scene continuity, clean audio direction. No subtitles, logos, or watermark unless requested.`;
+ $(kind==='image'?'imageResult':'videoResult').textContent=out;
+};
+window.copyResult=async id=>{let t=$(id).textContent;if(!t||t.includes('غادي يظهر'))return;try{await navigator.clipboard.writeText(t);alert('تنسخ البرومبت.')}catch(e){alert('حددي النص ونسخيه يدوياً.')}};
+window.buildIdea=()=>{let idea=$('idea').value.trim();if(!idea){alert('كتبي الفكرة أولاً.');return}let type=$('promptType').value;$('ideaResult').textContent=`Create a ${type}. Core concept: ${idea}. Define the main subject clearly, preserve consistent character identity and outfit, use a clean composition, appealing lighting, smooth visual storytelling, age-appropriate educational tone, high-quality details. Avoid distorted anatomy, extra fingers, random costume changes, gibberish text, logos, and watermarks.`};
+let editUrl=null;
+$('editFile').addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;if(editUrl)URL.revokeObjectURL(editUrl);editUrl=URL.createObjectURL(f);$('editPreview').src=editUrl;$('editPreview').hidden=false;applyFilters()});
+['brightness','contrast','saturate'].forEach(id=>$(id).addEventListener('input',applyFilters));
+function applyFilters(){if(!$('editPreview').src)return;$('editPreview').style.filter=`brightness(${$('brightness').value}%) contrast(${$('contrast').value}%) saturate(${$('saturate').value}%)`;}
+window.resetFilters=()=>{['brightness','contrast','saturate'].forEach(id=>$(id).value=100);applyFilters()};
+let ffmpeg=null;
+window.mergeVideos=async()=>{
+ const files=[...$('clips').files];if(files.length<2){alert('اختاري جوج فيديوهات على الأقل.');return}
+ const status=$('mergeStatus'),btn=$('mergeBtn');btn.disabled=true;status.textContent='كنحمّلو محرّك الدمج لأول مرة...';
+ try{
+  const {FFmpeg}=await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+  const {toBlobURL}=await import('https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js');
+  if(!ffmpeg){ffmpeg=new FFmpeg();ffmpeg.on('log',({message})=>{status.textContent=message.slice(-180)});ffmpeg.on('progress',({progress})=>{status.textContent='تقدم الدمج: '+Math.round(progress*100)+'%'});const core='https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';await ffmpeg.load({coreURL:await toBlobURL(core+'/ffmpeg-core.js','text/javascript'),wasmURL:await toBlobURL(core+'/ffmpeg-core.wasm','application/wasm')});}
+  status.textContent='كنوجد المقاطع...';
+  const names=[];
+  for(let i=0;i<files.length;i++){let ext=(files[i].name.split('.').pop()||'mp4').replace(/[^a-z0-9]/gi,'');let name=`input${i}.${ext}`;await ffmpeg.writeFile(name,new Uint8Array(await files[i].arrayBuffer()));names.push(name)}
+  const list=names.map(n=>`file '${n}'`).join('\n');await ffmpeg.writeFile('list.txt',new TextEncoder().encode(list));
+  status.textContent='كنجمع الفيديوهات...';
+  await ffmpeg.exec(['-f','concat','-safe','0','-i','list.txt','-c:v','libx264','-preset','ultrafast','-c:a','aac','-movflags','+faststart','output.mp4']);
+  const data=await ffmpeg.readFile('output.mp4');const url=URL.createObjectURL(new Blob([data.buffer],{type:'video/mp4'}));
+  $('mergedPreview').src=url;$('mergedPreview').hidden=false;$('downloadMerged').href=url;$('downloadMerged').hidden=false;status.textContent='نجح الدمج! تقدري تشوفي الفيديو أو تحمليه.';
+ }catch(err){status.textContent='ما قدرناش نكملو الدمج: '+(err?.message||err)+' . جربي مقاطع أقصر أو دقة أقل.'}
+ finally{btn.disabled=false}
+};
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
