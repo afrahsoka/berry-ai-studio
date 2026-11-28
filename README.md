@@ -17,13 +17,13 @@
 ## بنية مولّد الصور
 - الواجهة: `image-studio.html`، متوافقة مع شاشات الهاتف.
 - Backend: `functions/api/generate.js` (Cloudflare Pages Function).
-- إعدادات Cloudflare: `wrangler.toml` مع AI binding باسم `AI`.
-- النموذج مضبوط على 4 خطوات، مع ثلاثة مقاسات محددة لتقليل الحمل.
+- إعدادات Cloudflare Pages: `wrangler.toml` يحدد مجلد النشر؛ ربط AI يضاف من لوحة Cloudflare.
+- النموذج مضبوط على 4 خطوات؛ نسخة FLUX.1 Schnell الحالية تستخدم المقاس الافتراضي للنموذج.
 
 ## تشغيل مولّد الصور
 1. اربطي هذا المستودع بمشروع Cloudflare Pages.
 2. اختاري جذر المشروع كمجلد النشر، بلا أمر build، ومجلد الإخراج `.`.
-3. من إعدادات المشروع، أضيفي Workers AI binding باسم `AI` (أو استعملي إعداد `wrangler.toml`).
+3. من إعدادات Cloudflare Pages، أضيفي Workers AI binding باسم `AI` من قسم Settings → Functions → Workers AI bindings.
 4. أعيدي النشر، ثم افتحي `/image-studio.html`.
 
 مهم: GitHub Pages وحده لا يشغّل Pages Functions؛ واجهة التوليد تحتاج نشرها على Cloudflare Pages مع ربط AI.
