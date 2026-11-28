@@ -1,11 +1,5 @@
 const MODEL = "@cf/black-forest-labs/flux-1-schnell";
 
-const ALLOWED_SIZES = {
-  square: [512, 512],
-  portrait: [512, 768],
-  landscape: [768, 512],
-};
-
 export async function onRequestPost({ request, env }) {
   if (!env.AI) {
     return Response.json(
@@ -22,8 +16,6 @@ export async function onRequestPost({ request, env }) {
   }
 
   const prompt = typeof body.prompt === "string" ? body.prompt.trim() : "";
-  const size = ALLOWED_SIZES[body.size] ? body.size : "square";
-
   if (prompt.length < 3) {
     return Response.json({ error: "Please enter a more detailed image description." }, { status: 400 });
   }
@@ -32,22 +24,26 @@ export async function onRequestPost({ request, env }) {
   }
 
   try {
-    const [width, height] = ALLOWED_SIZES[size];
-    const image = await env.AI.run(MODEL, {
+    const output = await env.AI.run(MODEL, {
       prompt,
-      width,
-      height,
-      num_steps: 4,
+      steps: 4,
     });
 
-    return new Response(image, {
+    if (!output || typeof output.image !== "string") {
+      throw new Error("The model returned no image.");
+    }
+
+    const binary = atob(output.image);
+    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+
+    return new Response(bytes, {
       headers: {
-        "Content-Type": "image/png",
+        "Content-Type": "image/jpeg",
         "Cache-Control": "no-store",
         "X-Content-Type-Options": "nosniff",
       },
     });
-  } catch (error) {
+  } catch {
     return Response.json(
       { error: "Image generation failed. Please try again in a moment." },
       { status: 502 }
