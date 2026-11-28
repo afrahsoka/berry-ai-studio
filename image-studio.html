@@ -7,32 +7,21 @@
 <meta name="description" content="Create AI images with Berry AI Image Studio.">
 <title>Berry AI Image Studio</title>
 <style>
-:root{--bg:#f7f4fb;--ink:#29213a;--muted:#746b83;--purple:#382750;--pink:#e9a9ca;--card:#fff;--line:#e9e2ef}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+:root{--bg:#f7f4fb;--ink:#29213a;--muted:#746b83;--purple:#382750;--card:#fff;--line:#e9e2ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 header{background:linear-gradient(135deg,#2b2042,#61406f);color:#fff;padding:20px 17px 23px;border-radius:0 0 25px 25px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:20px;font-weight:850}
-.sub{font-size:12px;color:#eadcf0;margin-top:4px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:20px;font-weight:850}.sub{font-size:12px;color:#eadcf0;margin-top:4px}
 .pill{font-size:11px;background:#ffffff20;padding:7px 10px;border-radius:30px;white-space:nowrap}
-main{max-width:680px;margin:auto;padding:17px 14px 40px}
-.back{display:inline-block;color:var(--purple);text-decoration:none;font-size:13px;font-weight:700;margin:3px 0 14px}
+main{max-width:680px;margin:auto;padding:17px 14px 40px}.back{display:inline-block;color:var(--purple);text-decoration:none;font-size:13px;font-weight:700;margin:3px 0 14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 5px 18px #2c19400a}
-h1{font-size:20px;margin:0 0 6px}
-.hint{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 14px}
-label{display:block;font-size:13px;font-weight:750;margin:14px 0 6px}
-textarea,select{width:100%;border:1px solid #ded5e7;background:#fdfcff;border-radius:12px;padding:12px;font:inherit;color:var(--ink);outline:none}
-textarea{min-height:120px;resize:vertical}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-button{border:0;border-radius:12px;padding:13px 15px;background:var(--purple);color:white;font:inherit;font-weight:750;cursor:pointer;width:100%;margin-top:15px}
-button:disabled{opacity:.55;cursor:wait}
-.status{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;min-height:20px}
-.preview{margin-top:15px}
-.preview img{display:block;width:100%;height:auto;border-radius:14px;background:#f0eaf4}
+h1{font-size:20px;margin:0 0 6px}.hint{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 14px}
+label{display:block;font-size:13px;font-weight:750;margin:14px 0 6px}textarea,select{width:100%;border:1px solid #ded5e7;background:#fdfcff;border-radius:12px;padding:12px;font:inherit;color:var(--ink);outline:none}
+textarea{min-height:120px;resize:vertical}button{border:0;border-radius:12px;padding:13px 15px;background:var(--purple);color:white;font:inherit;font-weight:750;cursor:pointer;width:100%;margin-top:15px}
+button:disabled{opacity:.55;cursor:wait}.status{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px;min-height:20px}
+.preview{margin-top:15px}.preview img{display:block;width:100%;height:auto;border-radius:14px;background:#f0eaf4}
 .download{display:block;text-align:center;text-decoration:none;background:#f0e9f5;color:var(--purple);font-weight:750;padding:12px;border-radius:12px;margin-top:10px}
 .note{background:#fff7e8;border:1px solid #f2dfb8;border-radius:12px;padding:11px;font-size:11px;line-height:1.7;color:#70552b;margin-top:14px}
-footer{text-align:center;color:#92899c;font-size:11px;padding:20px}
-@media(min-width:560px){main{padding-top:24px}.card{padding:21px}}
+footer{text-align:center;color:#92899c;font-size:11px;padding:20px}@media(min-width:560px){main{padding-top:24px}.card{padding:21px}}
 </style>
 </head>
 <body>
@@ -41,62 +30,43 @@ footer{text-align:center;color:#92899c;font-size:11px;padding:20px}
 <a class="back" href="./index.html">← Back to Berry AI Studio</a>
 <section class="card">
 <h1>Create an image</h1>
-<p class="hint">Describe the image you want. Berry will send the prompt securely to its cloud image engine.</p>
+<p class="hint">Describe the image you want. Berry sends your prompt securely to its cloud image engine.</p>
 <label for="prompt">Image description</label>
 <textarea id="prompt" maxlength="1200" placeholder="A charming little strawberry classroom, soft pastel colors, polished 3D illustration..."></textarea>
-<div class="grid">
-<div><label for="style">Visual style</label><select id="style"><option value="polished 3D cartoon illustration">3D cartoon</option><option value="soft watercolor children's book illustration">Watercolor</option><option value="clean flat vector illustration">Flat vector</option><option value="detailed photorealistic image">Photorealistic</option><option value="clay animation style">Clay style</option><option value="soft pastel storybook illustration">Storybook</option></select></div>
-<div><label for="size">Image format</label><select id="size"><option value="square">Square · 1:1</option><option value="portrait">Portrait · 2:3</option><option value="landscape">Landscape · 3:2</option></select></div>
-</div>
+<label for="style">Visual style</label>
+<select id="style"><option value="polished 3D cartoon illustration">3D cartoon</option><option value="soft watercolor children's book illustration">Watercolor</option><option value="clean flat vector illustration">Flat vector</option><option value="detailed photorealistic image">Photorealistic</option><option value="clay animation style">Clay style</option><option value="soft pastel storybook illustration">Storybook</option></select>
 <button id="generate">Generate image</button>
 <div class="status" id="status" role="status" aria-live="polite">Ready when you are.</div>
-<div class="preview" id="preview" hidden><img id="result" alt="Generated image"><a id="download" class="download" download="berry-ai-image.png">Download image</a></div>
-<div class="note">Free usage has a daily limit set by Cloudflare. Generation may pause when the free daily allocation is reached. Never add a payment method just to test this first version.</div>
+<div class="preview" id="preview" hidden><img id="result" alt="Generated image"><a id="download" class="download" download="berry-ai-image.jpg">Download image</a></div>
+<div class="note">This first version generates a standard image format. Cloudflare's free usage has a daily limit; generation may pause when the allocation is reached. No paid upgrade is enabled.</div>
 </section>
 <footer>Berry AI Image Studio · FLUX.1 Schnell · Free-first</footer>
 </main>
 <script>
 const promptEl=document.getElementById("prompt");
 const styleEl=document.getElementById("style");
-const sizeEl=document.getElementById("size");
 const button=document.getElementById("generate");
 const statusEl=document.getElementById("status");
 const preview=document.getElementById("preview");
 const result=document.getElementById("result");
 const download=document.getElementById("download");
 let currentUrl=null;
-
 button.addEventListener("click",async()=>{
   const prompt=promptEl.value.trim();
   if(prompt.length<3){statusEl.textContent="Please describe the image first.";promptEl.focus();return;}
-  button.disabled=true;
-  preview.hidden=true;
+  button.disabled=true;preview.hidden=true;
   statusEl.textContent="Generating your image… this can take a little while.";
   const fullPrompt=prompt+". Visual style: "+styleEl.value+". Clear subject, thoughtful composition, high-quality details, balanced lighting. Avoid unwanted text, logos and watermarks.";
   try{
-    const response=await fetch("./api/generate",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({prompt:fullPrompt,size:sizeEl.value})
-    });
-    if(!response.ok){
-      let message="Could not generate the image. Please try again.";
-      try{const data=await response.json();if(data.error)message=data.error;}catch{}
-      throw new Error(message);
-    }
+    const response=await fetch("./api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:fullPrompt})});
+    if(!response.ok){let message="Could not generate the image. Please try again.";try{const data=await response.json();if(data.error)message=data.error;}catch{}throw new Error(message);}
     const blob=await response.blob();
     if(!blob.type.includes("image"))throw new Error("The image service returned an unexpected response.");
     if(currentUrl)URL.revokeObjectURL(currentUrl);
-    currentUrl=URL.createObjectURL(blob);
-    result.src=currentUrl;
-    download.href=currentUrl;
-    preview.hidden=false;
+    currentUrl=URL.createObjectURL(blob);result.src=currentUrl;download.href=currentUrl;preview.hidden=false;
     statusEl.textContent="Your image is ready.";
-  }catch(error){
-    statusEl.textContent=error.message||"Something went wrong. Please try again.";
-  }finally{
-    button.disabled=false;
-  }
+  }catch(error){statusEl.textContent=error.message||"Something went wrong. Please try again.";}
+  finally{button.disabled=false;}
 });
 </script>
 </body>
